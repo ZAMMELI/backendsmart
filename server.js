@@ -1,17 +1,17 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
-const energyRoutes = require('./routes/energy.routes');
+const authRoutes = require('./routes/auth.routes'); // Import the auth routes
 require('dotenv').config();
 
 const app = express();
+
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // Middleware to parse JSON bodies
 
-// Use API Routes
-app.use('/api', energyRoutes);
+// Use /api prefix for your routes
+app.use('/api', authRoutes);  // This connects /api/signin to the signin route
 
-// Server setup
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
