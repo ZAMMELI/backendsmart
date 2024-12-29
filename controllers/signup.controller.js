@@ -1,3 +1,4 @@
+
 const bcrypt = require('bcrypt');
 const Signup = require('../models/signup.model');
 

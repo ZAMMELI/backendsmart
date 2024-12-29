@@ -1,3 +1,5 @@
+
+//energy.controller.js
 const db = require("../models/energy.model");
 
 exports.insertConsommation = (req, res) => {
