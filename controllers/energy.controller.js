@@ -1,31 +1,19 @@
+const mysql = require('mysql');
+const db = require('../db.config'); // Adjust according to your setup
 
-//energy.controller.js
-const db = require("../models/energy.model");
 
-exports.insertConsommation = (req, res) => {
-  const { location, consommation } = req.body;
+// Function to get energy data
+const getEnergyData = (req, res) => {
+  const query = 'SELECT * FROM energy';
 
-  if (!location || !consommation) {
-    return res.status(400).json({ message: "Location and consommation are required" });
-  }
-
-  const query = "INSERT INTO energy (location, consommation) VALUES (?, ?)";
-  db.query(query, [location, consommation], (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Error inserting data" });
-    }
-    res.status(200).json({ message: "Data inserted successfully", data: result });
-  });
-};
-
-exports.getConsommation = (req, res) => {
-  const query = "SELECT * FROM energy";
   db.query(query, (err, results) => {
     if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Error fetching data" });
+      console.error('Error fetching energy data:', err);
+      return res.status(500).json({ message: 'Server error' });
     }
-    res.status(200).json({ data: results });
+
+    res.status(200).json({ energyData: results });
   });
 };
+
+module.exports = { getEnergyData };

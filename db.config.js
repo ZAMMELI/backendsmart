@@ -1,19 +1,19 @@
 // db.config.js
 const mysql = require('mysql');
 
-const connection = mysql.createConnection({
+const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "", // Your MySQL password
   database: "smart_building_db" // Your database name
 });
 
-connection.connect((err) => {
+db.connect((err) => {
   if (err) {
-    console.error('Error connecting to the database:', err.stack);
-    return;
+    console.error('Database connection error:', err);
+    process.exit(1); // Exit process if database connection fails
   }
-  console.log('Connected to the database as id ' + connection.threadId);
+  console.log('Connected to the database.');
 });
 
-module.exports = connection;
+module.exports = db;
